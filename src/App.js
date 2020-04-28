@@ -4,7 +4,6 @@ import Users from './user/pages/Users';
 import NewPlace from './places/pages/NewPlace';
 
 const app = () => {
-  // return <h1>Let's start!</h1>;
   return (
     <Router>
       <Switch>
