@@ -28,7 +28,7 @@ const app = () => {
             <NewPlace />
           </Route>
           <Route
-            path='/place/:placeId'
+            path='/places/:placeId'
             exact>
             <UpdatePlace />
           </Route>

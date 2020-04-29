@@ -14,7 +14,7 @@ const inputReducer = (state, action) => {
     case 'TOUCH':
       return {
         ...state,
-        isTouch: true
+        isTouched: true
       };
     default:
       return state;
@@ -23,9 +23,9 @@ const inputReducer = (state, action) => {
 
 const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {  // 2nd arguement - initial state
-    value: '',
-    isValid: false,
-    isTouch: false
+    value: props.value || '',
+    isValid: props.value || false,
+    isTouched: false
   });
 
   const { id, onInput } = props;
@@ -66,9 +66,9 @@ const Input = props => {
     );
 
   return (
-    <div className={ `form-control ${ !inputState.isValid && inputState.isTouch && 'form-control--invalid' }` }>
+    <div className={ `form-control ${ !inputState.isValid && inputState.isTouched && 'form-control--invalid' }` }>
       <label htmlFor={ props.id }>{ props.label }</label>
-      { !inputState.isValid && inputState.isTouch && <p>{ props.errorText }</p> }
+      { !inputState.isValid && inputState.isTouched && <p>{ props.errorText }</p> }
       { element }
     </div>
   );
