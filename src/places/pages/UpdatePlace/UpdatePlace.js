@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Input from '../../../shared/components/FormElements/Input/Input';
@@ -35,20 +35,35 @@ const DUMMY_PLACES = [
 ];
 
 const UpdatePlace = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const placeId = useParams().placeId;
+
+  const [formState, inputHandler, setFormData] = useForm({
+    title: {
+      value: '',
+      isValid: false
+    },
+    description: {
+      value: '',
+      isValid: false
+    }
+  }, false); // initially false
 
   const indentifiedPlace = DUMMY_PLACES.find(place => place.id === placeId);
 
-  const [formState, inputHandler] = useForm({
-    title: {
-      value: indentifiedPlace.title,
-      isValid: true
-    },
-    description: {
-      value: indentifiedPlace.description,
-      isValid: true
-    }
-  }, true); // initially true
+  useEffect(() => {
+    setFormData({
+      title: {
+        value: indentifiedPlace.title,
+        isValid: true
+      },
+      description: {
+        value: indentifiedPlace.description ,
+        isValid: true
+      }
+    }, true);
+    setIsLoading(false);
+  }, [setFormData, indentifiedPlace]);
 
   if (!indentifiedPlace) return (
     <div>
@@ -58,8 +73,14 @@ const UpdatePlace = () => {
 
   const submitHandler = event => {
     event.preventDefault();
-    console.log(formState.inputs); // send to backend
+    console.log(formState.inputs); // send data to the backend
   };
+
+  if (isLoading) return (
+    <div>
+      <h2>Loading...</h2>
+    </div>
+  );
 
   return (
     <form
@@ -87,7 +108,7 @@ const UpdatePlace = () => {
       <Button
         type='submit'
         disabled={ !formState.isValid }>
-        UPDATE PLACE
+          UPDATE PLACE
       </Button>
     </form>
   );
