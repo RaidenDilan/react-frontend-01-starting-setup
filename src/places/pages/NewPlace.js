@@ -9,7 +9,11 @@ const NewPlace = () => {
       <Input
         element='input'
         type='text'
-        label='Title' />
+        label='Title'
+        validtors={ [
+
+        ] }
+        errorText='Please enter a valid title' />
     </form>
   );
 };
