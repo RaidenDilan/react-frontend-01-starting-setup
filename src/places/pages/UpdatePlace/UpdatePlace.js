@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Input from '../../../shared/components/FormElements/Input/Input';
 import Button from '../../../shared/components/FormElements/Button/Button';
+import Card from '../../../shared/components/UIElements/Card/Card';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../../shared/util/validators';
 import { useForm } from '../../../shared/hooks/form-hook';
 import './UpdatePlace.css';
@@ -22,7 +23,7 @@ const DUMMY_PLACES = [
   },
   {
     id: 'p2',
-    title: 'Empire State Building',
+    title: 'Emp. State Building',
     description: 'One of the most famous sky scrapers in the world!',
     imageUrl: 'https://cdn.pixabay.com/photo/2015/12/08/00/40/empire-state-building-1081929_1280.jpg',
     address: '20 W 34th St, New York, NY 10001, United States',
@@ -52,22 +53,26 @@ const UpdatePlace = () => {
   const indentifiedPlace = DUMMY_PLACES.find(place => place.id === placeId);
 
   useEffect(() => {
-    setFormData({
-      title: {
-        value: indentifiedPlace.title,
-        isValid: true
-      },
-      description: {
-        value: indentifiedPlace.description ,
-        isValid: true
-      }
-    }, true);
+    if (indentifiedPlace) {
+      setFormData({
+        title: {
+          value: indentifiedPlace.title,
+          isValid: true
+        },
+        description: {
+          value: indentifiedPlace.description ,
+          isValid: true
+        }
+      }, true);
+    }
     setIsLoading(false);
   }, [setFormData, indentifiedPlace]);
 
   if (!indentifiedPlace) return (
-    <div>
-      <h2>Could not find place!</h2>
+    <div className='center'>
+      <Card>
+        <h2>Could not find place!</h2>
+      </Card>
     </div>
   );
 
