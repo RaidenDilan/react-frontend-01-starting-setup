@@ -8,7 +8,7 @@ import UpdatePlace from './places/pages/UpdatePlace/UpdatePlace';
 import Auth from './user/pages/Auth/Auth';
 import { AuthContext } from './shared/context/auth-context';
 
-const app = () => {
+const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = useCallback(() => {
@@ -58,4 +58,4 @@ const app = () => {
   );
 };
 
-export default app;
+export default App;
